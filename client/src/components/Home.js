@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <div>
         <Navbar/>
-        <div> This is the rest of the home page. Very lovely.</div>
+        <div className='ml-3'> (Insert home page here )</div>
     </div>
   )
 }

@@ -1,12 +1,16 @@
 import React from 'react';
+import Menu from './Menu';
 import Navbar from './Navbar';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
-    
+    const navigate = useNavigate();
   return (
     <div>
         <Navbar/>
-        <div> This is the DASHBOARD. Very lovely.</div>
+        <div className=''> 
+          <button onClick={() => {navigate("/practice")}} className = "bg-slate-200"> Topic by topic practice</button>
+        </div>
     </div>
   )
 }

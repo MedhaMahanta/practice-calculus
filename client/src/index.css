@@ -8,3 +8,55 @@
 /* body {
     background-color: #ededed;
 } */
+
+.menu-clicked {
+    font-weight: 600;
+    border-bottom-color: rgb(0 0 0 );
+    border-left-color: rgb(243 244 246);
+    border-right-color: rgb(243 244 246);
+    border-top-color: rgb(243 244 246);
+}
+
+.not-clicked {
+    border-color: rgb(243 244 246);
+}
+
+.menu-items {
+    padding: 6px;
+    border-width: 4px;
+}
+
+.menu-items:hover {
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.menu-items::before {
+    display: flex;
+    content: attr(title);
+    font-weight: bold;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+@layer utilities {
+    .scrollbar::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    .scrollbar::-webkit-scrollbar-track {
+        border-radius: 100vh;
+        background: #efefef;
+      }
+    
+      .scrollbar::-webkit-scrollbar-thumb {
+        background: #cdcdcd;
+        border-radius: 100vh;
+        border: 1px solid #ddd;
+      }
+    
+      .scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #ababab;
+      }
+}

@@ -5,6 +5,10 @@ const userSchema = mongoose.Schema({
     name: String,
     problemsSolved: [String],
     starredTopics: [String],
+    loginCount: {
+        type: Number,
+        default: 0
+    },
 },
 { collection: "users"});
 

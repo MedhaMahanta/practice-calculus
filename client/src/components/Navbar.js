@@ -16,14 +16,22 @@ const Navbar = () => {
     }
 
     function handleSignIn (res) {
-        console.log(res.credential);
         var userObject = jwt_decode(res.credential);
         setUser(userObject);
         localStorage.setItem("newUser", JSON.stringify({userObject}));
         setIsModal(false);
         var newUser = {name: userObject.name, emailID: userObject.email, problemsSolved: [], starredTopics: [],}
-        axios.post("http://localhost:4000/user/add", newUser);
-        console.log(newUser);
+
+        axios.get(`http://localhost:4000/user/${userObject.email}`)
+            .then((res) => {
+                if (res.data !== null) {
+                    axios.patch(`http://localhost:4000/user/${userObject.email}/loginCount`);
+                } else {
+                    axios.post("http://localhost:4000/user/add", newUser);
+                }
+            })
+            .catch((err) => console.error(err));
+
         navigate("/dashboard");
     }
 
@@ -57,7 +65,7 @@ const Navbar = () => {
   return (
     <div >
         <div className='h-1 bg-blue-800'></div>
-        <div className='bg-white h-16 text-gray-700 text-2xl drop-shadow-md font-body'>
+        <div className='bg-white h-16 text-gray-700 text-2xl drop-shadow-sm font-body'>
             <h1 className='ml-8 pt-3.5 float-left font-bold '>Practice Calculus</h1>
             {user ? (
                 <div className='float-right '>
