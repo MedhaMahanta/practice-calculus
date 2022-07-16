@@ -70,7 +70,7 @@ const Navbar = () => {
             {user ? (
                 <div className='float-right '>
                     <div onClick = {toggleUserMenu} className = "mr-12 grid grid-cols-2 mt-2.5 place-items-center opacity-80 hover:opacity-100 hover:cursor-pointer">
-                        <img src = {user.userObject.picture} className = "w-11 rounded-full"></img>
+                        <img src = {user.userObject.picture} className = "w-11 rounded-full" referrerpolicy="no-referrer" alt='T'></img>
                         <div className='text-lg'> { user.userObject.name}</div>
                     </div>
                     {userMenu && (

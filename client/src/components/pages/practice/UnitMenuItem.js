@@ -1,6 +1,13 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const UnitMenuItem = (props) => {
+
+    const navigate = useNavigate();
+
+    const viewTopic = (topic) => {
+        navigate('/practice', { state: { topic: topic} });
+    }
   return (
     <div className=' '>
         <div className='relative w-full overflow-hidden'>
@@ -17,10 +24,11 @@ const UnitMenuItem = (props) => {
                 </svg>
             </div>
             {props.topics.map((topic) => {
+                
                 return (
-                <div className='max-h-0 peer-checked:max-h-40 bg-white overflow-hidden transition-all duration-300'>
-                    <div className='p-4'>
-                        <p> {topic} </p>
+                <div className='max-h-0 peer-checked:max-h-40 bg-white overflow-hidden transition-all duration-300 '>
+                    <div className='p-4 hover:cursor-pointer' onClick={() => viewTopic(topic)}>
+                        <p> {topic.num} {topic.name} </p>
                     </div>
                 </div>)
             })}

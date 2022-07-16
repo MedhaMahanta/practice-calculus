@@ -3,7 +3,14 @@ import mongoose from "mongoose";
 const userSchema = mongoose.Schema({
     emailID: String,
     name: String,
-    problemsSolved: [String],
+    problemsSolved: [
+        {
+            topic: String,
+            probNum: String,
+            isCorrect: Boolean,
+            latestAns: String
+        }
+    ],
     starredTopics: [String],
     loginCount: {
         type: Number,
