@@ -26,8 +26,8 @@ const UnitMenuItem = (props) => {
             {props.topics.map((topic) => {
                 
                 return (
-                <div className='max-h-0 peer-checked:max-h-40 bg-white overflow-hidden transition-all duration-300 '>
-                    <div className='p-4 hover:cursor-pointer' onClick={() => viewTopic(topic)}>
+                <div key = {topic.num} className='max-h-0 peer-checked:max-h-40 bg-white overflow-hidden transition-all duration-300 '>
+                    <div className='p-4 hover:cursor-pointer hover:bg-gray-100' onClick={() => viewTopic(topic)}>
                         <p> {topic.num} {topic.name} </p>
                     </div>
                 </div>)

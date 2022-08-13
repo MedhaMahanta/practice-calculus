@@ -40,6 +40,17 @@
     visibility: hidden;
 }
 
+.katex { font-size: 1.05em; }
+
+.random-popup {
+    display: none;
+    position: absolute;
+}
+
+.icon:hover~.random-popup {
+    display: inline-block;
+}
+
 @layer utilities {
     .scrollbar::-webkit-scrollbar {
         width: 10px;

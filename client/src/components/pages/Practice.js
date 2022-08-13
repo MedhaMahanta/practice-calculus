@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Menu from '../Menu';
 import Navbar from '../Navbar';
 import UnitMenu from './practice/UnitMenu';
@@ -9,6 +9,20 @@ import { useLocation } from 'react-router-dom';
 
 const Practice = () => {
   const [questions, setQuestions] = useState([]);
+  const [color, setColor] = useState([]);
+
+  const ref1 = useRef();
+  const ref2 = useRef();
+  const ref3 = useRef();
+  const ref4 = useRef();
+  const ref5 = useRef();
+  const ref6 = useRef();
+  const refs = [ref1, ref2, ref3, ref4, ref5, ref6];
+  function scrolltoProb(refNum) {
+    console.log(refNum);
+    console.log("was clicked");
+    refs[refNum].current.scrollIntoView({behavior: "smooth"});
+  }
 
   const {state} = useLocation();
   const [newTopic, setNewTopic] = useState(state? state : {topic: {num: "1.1", name: "Evaluating Limits"}});
@@ -20,6 +34,7 @@ const Practice = () => {
     axios.get(`http://localhost:4000/problems/filter?topic=${newTopic.topic.num}`)
     .then((res) => {
       setQuestions(res.data);
+
     })
     .catch((err) => console.error(err));
   }, [newTopic])
@@ -30,7 +45,6 @@ const Practice = () => {
         <div className=''>
         <Navbar />
         </div>
-
         <div className=''> 
           <Menu tab = "tbtp"/>
           <div className='grid grid-cols-5'>
@@ -38,20 +52,19 @@ const Practice = () => {
               <div className='font-semibold text-lg text-center mt-4 mb-4'>Unit Menu</div>
               <UnitMenu/>
             </div>
-            <div className='col-span-4 ml-16 mr-[96px]'>
-              <div className='text-center text-2xl font-semibold mt-6 mb-3'>  {newTopic.topic.name} </div>
+            <div className='col-span-4 ml-16 mr-[150px]'>
+              <div className='text-center text-2xl font-semibold mt-6 mb-3'> {newTopic.topic.num} {newTopic.topic.name} </div>
               {questions.map((quest, index) => {
-                return <Problem topicNum = {newTopic.topic.num} problemNum = {(index+1).toString()} question = {quest.question} answer = {quest.answer}/>
+                console.log(index);
+                console.log(refs[index]);
+                return <Problem ref = {refs[index]} key = {quest.id} topicNum = {newTopic.topic.num} problemNum = {(index+1).toString()} question = {quest.question} answer = {quest.answer} solution = {quest.solution} setColor = {setColor}/>
               })}
             </div>
-
-
-         </div>
-          <div className='fixed right-16 top-32 '>
+          </div>
+          <div className='fixed right-32 top-36 '>
               {questions.map((quest, newIndex) => {
-                return <Progress index = {newIndex}/>
+                return <Progress scrollFn = {scrolltoProb} key = {quest.id} index = {newIndex} color = {color} topic = {newTopic.topic} />
               })}
-
           </div>
         </div>
     </div> 

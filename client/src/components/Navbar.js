@@ -68,17 +68,18 @@ const Navbar = () => {
         <div className='bg-white h-16 text-gray-700 text-2xl drop-shadow-sm font-body'>
             <h1 className='ml-8 pt-3.5 float-left font-bold '>Practice Calculus</h1>
             {user ? (
-                <div className='float-right '>
+                <div className='float-right'>
                     <div onClick = {toggleUserMenu} className = "mr-12 grid grid-cols-2 mt-2.5 place-items-center opacity-80 hover:opacity-100 hover:cursor-pointer">
-                        <img src = {user.userObject.picture} className = "w-11 rounded-full" referrerpolicy="no-referrer" alt='T'></img>
+                        <img src = {user.userObject.picture} className = "w-11 rounded-full" referrerPolicy="no-referrer" alt='T'></img>
                         <div className='text-lg'> { user.userObject.name}</div>
                     </div>
                     {userMenu && (
-                        <div className='drop-shadow-none'>
-                            <div className='mr-8 border-solid border-2'>
+                        <div className='drop-shadow-none absolute w-44 ml-4 bg-white text-[18px] border-solid border-gray-300 border-[1px] rounded-sm shadow-md mt-1'>
+                            <div className='pl-1'>
                                 Profile
                             </div>
-                            <div onClick = {logout} className='mr-8 border-solid border-2 hover:cursor-pointer'>
+							<hr/>
+                            <div onClick = {logout} className='pl-1 hover:cursor-pointer hover:bg-gray-100'>
                                 Logout
                             </div>
                         </div>
