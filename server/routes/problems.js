@@ -9,16 +9,17 @@ router.get("/", (req, res) => {
 
 router.get("/filter", (req, res) => {
     res.json(calcProblems.filter( (problem) => {
-        let keep = true;
+        let keep = false;
         if (req.query.unit) {
-            keep = keep && problem.unit == req.query.unit;
+            let unitArr = req.query.unit.split(',');
+            keep = keep || unitArr.some(unit => problem.unit == unit);
         }
         if (req.query.tags) {
             let tagArr = req.query.tags.split(',');
-            keep = keep && tagArr.some(tag => problem.tags.includes(tag));
+            keep = keep || tagArr.some(tag => problem.tags.includes(tag));
         }
         if (req.query.topic) {
-            keep = keep && problem.topic == req.query.topic;
+            keep = keep || problem.topic == req.query.topic;
         }
         return keep;
     } ));

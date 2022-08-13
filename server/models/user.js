@@ -16,6 +16,29 @@ const userSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
+    randomProblems: [
+        {
+            startedAt: {
+                type: Date,
+                default: new Date()
+            },
+            isCompleted: {
+                type: Boolean,
+                default: false
+            },
+            problemList: [
+                {
+                    id: String,
+                    isCorrect: {
+                        type: String,
+                        default: "not answered"
+                    },
+                    submittedAns: String
+                }
+            ],
+            filters: [String]
+        }
+    ]
 },
 { collection: "users"});
 
