@@ -17,12 +17,9 @@ const Problem = React.forwardRef((props, ref) => {
   
   useEffect(() => {
     props.setColor([]);
-    console.log(props.ref);
   }, [props.topicNum])
 
   useEffect(() => {
-    console.log(props.problemNum);
-
     axios.get(`http://localhost:4000/user/${emailID}/solved?topic=${props.topicNum}&problemNum=${props.problemNum}`)
     .then((res) => {
       setIsLoading(false);
@@ -84,7 +81,7 @@ const Problem = React.forwardRef((props, ref) => {
           {props.problemNum}.&nbsp;
           <Latex >{props.question}</Latex>
         </div>
-        <form className='ml-4 mt-3' onSubmit={handleSubmit} autocomplete="off">
+        <form className='ml-4 mt-3' onSubmit={handleSubmit} autoComplete="off">
             <label>
                 Answer: 
                 <input type="text" value = {userAns || ""} disabled = {isDisabled} name = "answer" onChange = {(e) => {setUserAns(e.target.value)}} 

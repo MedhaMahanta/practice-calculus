@@ -117,6 +117,53 @@ router.get("/:emailID/solved", (req, res) => {
    })
 });
 
+router.patch("/:emailID/starredTopics", (req, res) => {
+   const {emailID: emailID} = req.params;
+   const topicData = req.body;
+
+   if (topicData.add) {
+      UserModel.findOneAndUpdate({emailID: emailID}, {$push: {"starredTopics": topicData.topic }}, null, (err, doc) => {
+         if (!err) {
+            res.json(doc);
+         } else {
+            res.status(400).json({"error": err});
+         }
+      });
+   } else {
+      UserModel.findOne({emailID: emailID}, {__v: 0}, (err, docs) => {
+         if (!err) {
+            let starredTopics = docs.starredTopics;
+            const index = starredTopics.indexOf(topicData.topic);
+            if (index > -1) {
+               starredTopics.splice(index, 1);
+            }
+            UserModel.findOneAndUpdate({emailID: emailID}, {starredTopics: starredTopics}, null, (err, doc) => {
+               if (!err) {
+                  res.json(doc);
+               } else {
+                  res.status(400).json({"error": err});
+               }
+            });
+         } else {
+            res.status(400).json({"error": err})
+         }
+      })
+   }
+});
+
+router.get("/:emailID/starredTopics", (req, res) => {
+   const {emailID: emailID} = req.params;
+
+   UserModel.findOne({emailID: emailID}, {__v: 0}, (err, docs) => {
+      if (!err) {
+         res.json(docs.starredTopics);
+      } else {
+         res.status(400).json({"error": err})
+      }
+   })
+   
+})
+
 //Random Problem Generator
 router.post("/:emailID/randomSet", (req, res) => {
    const {emailID: emailID} = req.params;
@@ -146,5 +193,47 @@ router.get("/:emailID/randomSet", (req, res) => {
       }
    })
 });
+
+router.patch("/:emailID/randomSet", (req, res) => {
+   const {emailID: emailID} = req.params;
+   const probData = req.body;
+
+   UserModel.findOne({emailID: emailID}, {__v: 0}, (err, docs) => {
+      if (!err) {
+         let tempPsets = docs.randomProblems;
+         let i = 0;
+         if(probData.psetNum === -1) {
+            i = tempPsets.length-1;
+         } else {
+            i = probData.psetNum;
+         }
+         const index = tempPsets[i].problemList.findIndex(p => p.id == probData.id);
+         tempPsets[i].problemList[index].isCorrect = probData.isCorrect;
+         tempPsets[i].problemList[index].submittedAns = probData.latestAns;
+         
+         let completed = true;
+         for(const p of tempPsets[i].problemList) {
+            console.log(p);
+            console.log(tempPsets[i].problemList[0]);
+            console.log(tempPsets[i].problemList);
+            if (p.isCorrect == "not answered") {
+               completed = false;
+            }
+         }
+         tempPsets[i].isCompleted = completed;
+
+         UserModel.findOneAndUpdate({emailID: emailID}, {randomProblems: tempPsets}, null, (err, doc) => {
+            if (!err) {
+               res.json(doc);
+            } else {
+               res.status(400).json({"error": err});
+            }
+         });
+      } else {
+         res.status(400).json({"error": err})
+      }
+   })
+
+})
 
  export default router;

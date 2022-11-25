@@ -10,23 +10,29 @@ const Problem = (props) => {
 
   const emailID = JSON.parse(localStorage.getItem("newUser")).userObject.email;
   
-  useEffect(() => {
-    props.setColor([]);
-    console.log(props.ref);
-  }, [props.topicNum])
 
   useEffect(() => {
-    console.log(props.problemNum);    
-  }, [props.problemNum])
+    console.log(props.pData);
+    if(props.pData) {
+      setUserAns(props.pData.submittedAns);
+      if (props.pData.isCorrect === "true") {
+        setProbStatus("correct");
+      } else if (props.pData.isCorrect === "false") {
+        setProbStatus("incorrect");
+      } else {
+        setProbStatus("not answered");
+      }
+    }
+  }, [])
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const probData = {
-      topic: props.topicNum,
-      probNum: props.problemNum,
+    let probData = {
+      id: props.id,
       isCorrect: (userAns === props.answer),
-      latestAns: userAns
+      latestAns: userAns,
+      psetNum: 0
     }
 
     if (userAns === props.answer) {
@@ -35,17 +41,26 @@ const Problem = (props) => {
     } else {
       setProbStatus("incorrect");
       setIsDisabled(false); 
+    } 
+
+    if (props.newSet) {
+      probData.psetNum = -1;
+    } else {
+      probData.psetNum = props.psetNum;
     }
+
+    axios.patch(`http://localhost:4000/user/${emailID}/randomSet`, probData);
+
   }
   
 
   return (
-    <div  id = {props.problemNum} className='pt-2 pl-10 mb-5'>
+    <div  className='pt-2 pl-10 mb-5'>
         <div>
           {props.problemNum}.&nbsp;
           <Latex >{props.question}</Latex>
         </div>
-        <form className='ml-4 mt-3' onSubmit={handleSubmit} autocomplete="off">
+        <form className='ml-4 mt-3' onSubmit={handleSubmit} autoComplete="off">
             <label>
                 Answer: 
                 <input type="text" value = {userAns || ""} disabled = {isDisabled} name = "answer" onChange = {(e) => {setUserAns(e.target.value)}} 

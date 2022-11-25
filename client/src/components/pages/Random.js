@@ -15,7 +15,7 @@ const Random = () => {
 
   const units = ["Unit 1: Limits and Continuity", "Unit 2: Understanding Derivatives", "Unit 3: Advanced Rules of Differentiation"]
   const concepts = ["Limits", "Derivatives", "Integrals"];
-  const tags = ["Graphs", "Tables", "Word Problems"];
+  const tags = ["Graphs", "Tables", "Word Problems", "Functions"];
 
   const [count, setCount] = useState(10);
   const [color, setColor] = useState(null);
@@ -46,13 +46,18 @@ const Random = () => {
       }
       axios.get(queryString)
       .then((res) => {
-        setQuestions(res.data);
+        let probs = res.data;
+        console.log(probs);
+        probs.sort(() => Math.random() - 0.5);
+        console.log(probs);
+
+        setQuestions(probs);
         const newSet = {
           startedAt: Date.now(),
           problemList: [],
           filters: [...selectedUnits, ...selectedConcepts, ...selectedTags]
         } 
-        res.data.forEach((q, index) => {
+        probs.forEach((q, index) => {
           if (index < count) {
             const newProb = {
               id: q.id,
@@ -122,9 +127,7 @@ const Random = () => {
             <div>
               Number of Problems: 
               <span className='bg-gray-100 shadow-md ml-2 mr-2 hover:cursor-pointer' onClick={() => setCount((prev) => prev-1)}> - </span>
-              <span>
-                {count}
-              </span>
+              <span> {count} </span>
               <span className='bg-gray-100 shadow-md ml-2 mr-2 hover:cursor-pointer' onClick={() => setCount((prev) => prev+1)}> + </span>
             </div>
             
@@ -145,7 +148,7 @@ const Random = () => {
             <div className='bg-slate-50 mt-8'>
               {questions.map((quest, index) => {
               if (index < count) {
-                return <Problem ref = {null} key = {quest.id} topicNum = {quest.topic} problemNum = {(index+1).toString()} question = {quest.question} answer = {quest.answer} solution = {quest.solution} setColor = {setColor}/>
+                return <Problem ref = {null} key = {quest.id} id = {quest.id} topicNum = {quest.topic} problemNum = {(index+1).toString()} question = {quest.question} answer = {quest.answer} solution = {quest.solution} setColor = {setColor} newSet = {true}/>
               }
             })}
             </div>

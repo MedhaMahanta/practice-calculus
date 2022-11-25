@@ -25,6 +25,11 @@ router.get("/filter", (req, res) => {
     } ));
 });
 
+router.get("/find/:id", (req, res) => {
+    const {id: id} = req.params;
+    res.json(calcProblems.find(prob => prob.id == id));
+})
+
 export default router;
 
 

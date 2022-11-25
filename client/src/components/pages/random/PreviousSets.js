@@ -9,6 +9,7 @@ const PreviousSets = (props) => {
     axios.get(`http://localhost:4000/user/${emailID}/randomSet`)
       .then ((res) => {
         setPsets(res.data);
+        console.log(res.data);
       })
       .catch((err) => console.error(err));
   }, [])
@@ -34,9 +35,12 @@ const PreviousSets = (props) => {
                   return <span className='text-sm rounded-full bg-purple-200 text-purple-900 mr-2 pl-2 pr-2'> {filter.length === 1 ? " Unit " : ""} {filter} </span>
                 })}
                 </span>
+                <span className={`float-right shadow-lg ${pset.isCompleted ? "bg-green-200" : "bg-amber-200"} rounded-full ml-2 mr-2 pl-2 pr-2 hover:shadow-xl`}>
+                  {pset.isCompleted ? " Review " : " Resume "}
+                </span>
                 <span className='float-right'>
                   {date.getMonth()}/{date.getDay()}/{date.getFullYear()}, {date.getHours() > 12 ? date.getHours()-12 : date.getHours()}:{date.getMinutes()} {date.getHours() > 12 ? "pm": "am"}
-                </span>
+                </span>                
               </div>)
             })}
           </div>
