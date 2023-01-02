@@ -17,7 +17,12 @@ const UnitMenu = () => {
           {num: "2.4", name: "Power Rule"}, 
           {num: "2.5", name: "Product and Quotient Rules"}, 
           {num: "2.6", name: "Chain Rule"}]}/>
-        <UnitMenuItem unit = "3" topics = {["Evaluating Limits"]}/>
+        <UnitMenuItem unit = "3" topics = {[
+          {num: "3.1", name: "Implicit Differentiation"},
+          {num: "3.2", name: "Related Rates"},
+          {num: "3.3", name: "Exponential & Logarithmic Functions"},
+          {num: "3.4", name: "Inverse Functions"},
+          {num: "3.5", name: "Inverse Trig Functions"}]}/>
         <UnitMenuItem unit = "4" topics = {["Evaluating Limits"]}/>
         <UnitMenuItem unit = "5" topics = {["Evaluating Limits"]}/>
         <UnitMenuItem unit = "6" topics = {["Evaluating Limits"]}/>
