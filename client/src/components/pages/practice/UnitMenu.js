@@ -23,9 +23,25 @@ const UnitMenu = () => {
           {num: "3.3", name: "Exponential & Logarithmic Functions"},
           {num: "3.4", name: "Inverse Functions"},
           {num: "3.5", name: "Inverse Trig Functions"}]}/>
-        <UnitMenuItem unit = "4" topics = {["Evaluating Limits"]}/>
-        <UnitMenuItem unit = "5" topics = {["Evaluating Limits"]}/>
-        <UnitMenuItem unit = "6" topics = {["Evaluating Limits"]}/>
+        <UnitMenuItem unit = "4" topics = {[
+          {num: "4.1", name: "Increasing and Decreasing Behavior"},
+          {num: "4.2", name: "Concavity and Points of Inflection"},
+          {num: "4.3", name: "Curve Sketching"},
+          {num: "4.4", name: "Using the Derivative Graph"},
+          {num: "4.5", name: "Absolute Extrema"}]}/>
+        <UnitMenuItem unit = "5" topics = {[
+          {num: "5.1", name: "Optimization"},
+          {num: "5.2", name: "Particle Motion and Derivatives"},
+          {num: "5.3", name: "Mean Value Theorem"},
+          {num: "5.4", name: "L'Hôpital's Rule"}]}/>
+        <UnitMenuItem unit = "6" topics = {[
+          {num: "6.1", name: "Area and Definite Integrals"},
+          {num: "6.2", name: "Riemann Sums"},
+          {num: "6.3", name: "Antiderivatives and Indefinite Integrals"},
+          {num: "6.4", name: "The First Fundamental Theorem"},
+          {num: "6.5", name: "The Second Fundamental Theorem"},
+          {num: "6.6", name: "Integrals in Context"},
+        ]}/>
         <UnitMenuItem unit = "7" topics = {["Evaluating Limits"]}/>
         <UnitMenuItem unit = "8" topics = {["Evaluating Limits"]}/>
         </div>
