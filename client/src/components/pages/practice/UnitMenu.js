@@ -40,10 +40,19 @@ const UnitMenu = () => {
           {num: "6.3", name: "Antiderivatives and Indefinite Integrals"},
           {num: "6.4", name: "The First Fundamental Theorem"},
           {num: "6.5", name: "The Second Fundamental Theorem"},
-          {num: "6.6", name: "Integrals in Context"},
-        ]}/>
-        <UnitMenuItem unit = "7" topics = {["Evaluating Limits"]}/>
-        <UnitMenuItem unit = "8" topics = {["Evaluating Limits"]}/>
+          {num: "6.6", name: "Integrals in Context"}]}/>
+        <UnitMenuItem unit = "7" topics = {[
+          {num: "7.1", name: "Integration by Substitution"},
+          {num: "7.2", name: "Exponential & Logarithmic Integrals"},
+          {num: "7.3", name: "Trig Substitution"},
+          {num: "7.4", name: "Algebraic Methods for Integration"}]}/>
+        <UnitMenuItem unit = "8" topics = {[
+          {num: "8.1", name: "Differential Equations and Slope Fields"},
+          {num: "8.2", name: "Separation of Variables for Differential Equations"},
+          {num: "8.3", name: "Exponential Growth and Decay"},
+          {num: "8.4", name: "Area Between Two Curves"},
+          {num: "8.5", name: "Volume of Solids of Revolution"},
+          {num: "8.6", name: "Volume of Solids by Cross-Sections"}]}/>
         </div>
 </div>
 
