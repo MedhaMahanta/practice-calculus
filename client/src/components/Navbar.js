@@ -86,7 +86,10 @@ const Navbar = () => {
                     )}
                 </div>
                 ) : (
-                <button onClick={signIn} className='float-right mr-12 pt-4 text-xl font-semibold opacity-80 text-blue-800 hover:opacity-100'> Sign In</button>
+                <div className='float-right relative mr-12 mt-2'>
+                    <div class = " absolute inset-0 bg-blue-800 rounded-lg blur-sm"> </div>
+                    <button onClick={signIn} className='relative bg-white text-slate-700 pt-2 pb-2 pl-6 pr-6 text-xl rounded-lg font-semibold hover:drop-shadow-lg'> Sign In</button>
+                </div>
             )}
         </div>
         <div className = {` bg-black bg-opacity-30 absolute inset-0 justify-center items-center ${isModal ? " flex" : " hidden"}`}>
