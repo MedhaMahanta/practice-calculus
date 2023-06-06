@@ -9,7 +9,6 @@ const PreviousSets = (props) => {
     axios.get(`http://localhost:4000/user/${emailID}/randomSet`)
       .then ((res) => {
         setPsets(res.data);
-        console.log(res.data);
       })
       .catch((err) => console.error(err));
   }, [])
@@ -39,7 +38,7 @@ const PreviousSets = (props) => {
                   {pset.isCompleted ? " Review " : " Resume "}
                 </span>
                 <span className='float-right'>
-                  {date.getMonth()}/{date.getDay()}/{date.getFullYear()}, {date.getHours() > 12 ? date.getHours()-12 : date.getHours()}:{date.getMinutes()} {date.getHours() > 12 ? "pm": "am"}
+                  {date.getMonth()+1}/{date.getDate()}/{date.getFullYear()}, {date.getHours() > 12 ? date.getHours()-12 : date.getHours()}:{date.getMinutes() < 10 ? "0" : ""}{date.getMinutes()} {date.getHours() > 12 ? "pm": "am"}
                 </span>                
               </div>)
             })}
