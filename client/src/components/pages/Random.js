@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import Menu from '../Menu';
 import Navbar from '../Navbar';
 import axios from 'axios';
@@ -9,12 +9,14 @@ import PreviousSets from './random/PreviousSets';
 const Random = () => {
   const [selectedUnits, setUnits] = useState([]);
   const [selectedConcepts, setConcepts] = useState([]);
+  const [selectedTopics, setSelectedTopics] = useState([]);
   const [selectedTags, setTags] = useState([]);
 
   const [questions, setQuestions] = useState([]);
 
   const units = ["Unit 1: Limits and Continuity", "Unit 2: Understanding Derivatives", "Unit 3: Advanced Rules of Differentiation"]
   const concepts = ["Limits", "Derivatives", "Integrals"];
+  const [topics, setTopics] = useState([]);
   const tags = ["Graphs", "Tables", "Word Problems", "Functions"];
 
   const [count, setCount] = useState(10);
@@ -26,8 +28,16 @@ const Random = () => {
 
   const emailID = JSON.parse(localStorage.getItem("newUser")).userObject.email;
 
+  useEffect(() => {
+    axios.get(`http://localhost:4000/user/${emailID}/starredTopics`)
+    .then((res) => {
+      setTopics(res.data);
+    })
+    .catch((err) => console.error(err));
+  }, [])
+  
   const submitFilters = () => {
-    if (selectedUnits.length === 0 && selectedConcepts.length === 0 && selectedTags.length === 0) {
+    if (selectedUnits.length === 0 && selectedConcepts.length === 0 && selectedTopics.length == 0 && selectedTags.length === 0) {
       console.log("none selected");
     }
     else {
@@ -42,8 +52,16 @@ const Random = () => {
         if (multiple) {
           queryString += `&`;
         }
+        multiple = true;
         queryString += `tags=${selectedConcepts.join(',')+','+selectedTags.join(',')}`; 
       }
+      if (selectedTopics.length !== 0) {
+        if (multiple) {
+          queryString += `&`;
+        }
+        queryString += `topic=${selectedTopics.join(',')}`;
+      }
+      console.log(queryString);
       axios.get(queryString)
       .then((res) => {
         let probs = res.data;
@@ -55,7 +73,7 @@ const Random = () => {
         const newSet = {
           startedAt: Date.now(),
           problemList: [],
-          filters: [...selectedUnits, ...selectedConcepts, ...selectedTags]
+          filters: [...selectedUnits, ...selectedConcepts, ...selectedTopics, ...selectedTags]
         } 
         probs.forEach((q, index) => {
           if (index < count) {
@@ -108,6 +126,18 @@ const Random = () => {
                     {selectedConcepts.includes(concept) ? 
                       <span onClick={() => {setConcepts((prev) => prev.filter(p => p != concept))}}> x </span> : 
                       <span onClick={() => {setConcepts((prev) => ([...prev, concept]))}}> + </span>}
+                  </span>
+                </span>)
+              })}
+            </div>
+            <div className='mt-3 mb-3'>
+              Starred Topics:
+              {topics.map((topic) => {
+                return (<span  className={`bg-slate-200 rounded-lg m-2 text-sm pl-2 pr-2 shadow-md ${selectedTopics.includes(topic) ? "bg-sky-400": ""}`}> {topic} 
+                  <span className='rounded-full ml-1 pl-1 pr-1 bg-gray-50 hover:cursor-pointer hover:bg-blue-700 hover:text-white'>
+                    {selectedTopics.includes(topic) ? 
+                      <span onClick={() => {setSelectedTopics((prev) => prev.filter(p => p != topic))}}> x </span> : 
+                      <span onClick={() => {setSelectedTopics((prev) => ([...prev, topic]))}}> + </span>}
                   </span>
                 </span>)
               })}

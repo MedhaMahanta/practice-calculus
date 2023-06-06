@@ -19,7 +19,8 @@ router.get("/filter", (req, res) => {
             keep = keep || tagArr.some(tag => problem.tags.includes(tag));
         }
         if (req.query.topic) {
-            keep = keep || problem.topic == req.query.topic;
+            let topicArr = req.query.topic.split(',');
+            keep = keep || topicArr.some(topic => problem.topic == topic);
         }
         return keep;
     } ));
