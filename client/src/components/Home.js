@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from './Navbar';
+import {useNavigate} from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (localStorage.getItem("newUser")) {
+      navigate("/dashboard");
+    }
+
+  })
   return (
     <div className='bg-[url("home-background.png")] h-screen bg-cover'>
         <Navbar/>

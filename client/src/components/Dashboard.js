@@ -1,13 +1,14 @@
 import React from 'react';
 import Menu from './Menu';
 import Navbar from './Navbar';
+import Footer from './Footer';
 import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
     const navigate = useNavigate();
     const username = JSON.parse(localStorage.getItem("newUser")).userObject.given_name;
   return (
-    <div>
+    <div className='bg-gradient-to-r from-indigo-100 via-violet-200 to-indigo-300 h-screen bg-cover relative'>
         <Navbar/>
         <div className='mt-20 ml-10'> 
           <div className='text-3xl font-semibold'> Welcome, {username}. </div>
@@ -21,6 +22,9 @@ const Dashboard = () => {
             <button onClick={() => {navigate("/random")}} className = 'relative bg-white p-2 rounded-md hover:drop-shadow-lg'> Random Problem Generator  </button>
           </div>
         </div>
+          {/* <div class="absolute inset-x-0 bottom-0">
+            <Footer/>
+          </div> */}
     </div>
   )
 }

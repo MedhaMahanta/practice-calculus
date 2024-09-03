@@ -75,9 +75,9 @@ const Navbar = () => {
                     </div>
                     {userMenu && (
                         <div className='drop-shadow-none absolute w-44 ml-4 bg-white text-[18px] border-solid border-gray-300 border-[1px] rounded-sm shadow-md mt-1'>
-                            <div className='pl-1'>
+                            {/* <div className='pl-1'>
                                 Profile
-                            </div>
+                            </div> */}
 							<hr/>
                             <div onClick = {logout} className='pl-1 hover:cursor-pointer hover:bg-gray-100'>
                                 Logout
